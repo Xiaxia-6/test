@@ -8,18 +8,33 @@
               <p>360天眼新一代威胁感知系统（SkyEye，以下简称天眼系统）是新一代高级威胁检测溯源产品，可为政府、金融、能源、运营商、大型企业等客户提供高级威胁的发现、分析与溯源功能。天眼系统可对本地流量进行全量还原、存储与深度分析，从流量、文件以及终端日志多个维度，结合360云端大数据平台与威胁情报中心推送的专属威胁情报，在“办公网”和“数据中心”场景下，准确发现包括APT在内的各类高级威胁事件，提升用户精准发现威胁和溯源分析的能力。</p>
               <img src="../assets/tianyan.jpg" >
               <br/>
-            <button class="project-introduction-list-item-button">联系我们</button>
+            <button class="project-introduction-list-item-button" @click="ContactClick">联系我们</button>
           </div>
         </div>
       </div>
+    <my-dialog :is-show="isShowDialog" @on-close="closeDialog"></my-dialog>
     </div>
 </template>
 <script>
   import LeftMenu  from './LeftMenu.vue'
+  import MyDialog from './dialog.vue'
   export default {
     components:{
-      LeftMenu
+      LeftMenu,MyDialog
     },
+    data(){
+      return{
+        isShowDialog:false
+      }
+    },
+    methods:{
+      ContactClick(){
+        this.isShowDialog = true
+      },
+      closeDialog(){
+        this.isShowDialog = false
+      }
+    }
   }
 </script>
 

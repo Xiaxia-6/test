@@ -18,7 +18,6 @@
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
-      <my-welcome></my-welcome>
     </div>
 
     <div class="app-footer">
@@ -30,12 +29,10 @@
 <script>
   import MyDialog from './dialog.vue'
   import MyFooter from './Footer.vue'
-  import MyWelcome from './WelcomeContent.vue'
   export default {
     components:{
       MyDialog,
       MyFooter,
-      MyWelcome
     },
     data(){
       return{
@@ -146,5 +143,7 @@ body{
   .nav-pile {
     padding: 0 10px;
   }
-
+.app-footer{
+margin-top: 340px;
+}
 </style>

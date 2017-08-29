@@ -1,78 +1,78 @@
-//登录
-
 <template>
   <div class="login" id="login">
     <div class="log-bg">
     </div>
     <div class="log-box">
-      <input type="text" placeholder="请输入邮箱..." class="log-input">
-      <input type="password" placeholder="请输入密码..." class="log-input" >
-      <button class="log-btn">登录</button>
+      <input type="text" placeholder="请输入邮箱..." class="log-input"  v-model="username">
+      <input type="password" placeholder="请输入密码..." class="log-input" v-model="password" >
+      <a class="log-btn" @click="tologin">登录</a>
+      <p class="error">{{UserError.errorText}}</p>
+      <p class="error">{{passwordError.errorText}}</p>
+      <p class="error">{{errorText}}</p>
     </div>
   </div>
 </template>
 
 <script>
-/*  export default {
-    name: 'Login',
-    data(){
+  export default {
+    data() {
       return {
-        isLoging: false,
-        account: '',
-        password: ''
+        username: '',
+        password: '',
+        errorText: ''
       }
     },
-    methods:{
-
-      //登录逻辑
-      login(){
-        if(this.account!='' && this.password!=''){
-          this.toLogin();
+    /*对输入框中的内容进行判断，当username每次改变，都会进行验证，并返回状态，如果没有错误信息，则span中没有内容*/
+    computed: {
+      UserError() {
+        let errorText, status
+        if (!/@/g.test(this.username)) {
+          status = false
+          errorText = '请输入正确格式的账号'
+        } else {
+          status = true
+          errorText = ''
+        }
+        if (!this.userFlag) {
+          errorText = ''
+          this.userFlag = true
+        }
+        return {
+          status,
+          errorText
         }
       },
-
-      //登录请求
-      toLogin(){
-
-        //一般要跟后端了解密码的加密规则
-        //这里例子用的哈希算法来自./js/sha1.min.js
-        let password_sha = hex_sha1(hex_sha1( this.password ));
-
-        //需要想后端发送的登录参数
-        let loginParam = {
-          account: this.account,
-          password_sha
+      passwordError() {
+        let errorText, status
+        if (!/^\w{6,18}$/g.test(this.password)) {
+          status = false
+          errorText = '请输入6到18位的正确密码'
+        } else {
+          status = true
+          errorText = ''
         }
-
-        //设置在登录状态
-        this.isLoging = true;
-
-        //请求后端,比如:
-        /!*this.$http.post( 'example.com/login.php', {
-            param: loginParam).then((response) => {
-          if(response.data.code == 1){
-            let expireDays = 1000 * 60 * 60 * 24 * 15;
-            this.setCookie('session', response.data.session, expireDays);
-            //登录成功后
-            this.$router.push('/user_info');
-          }
-          }, (response) => {
-              //Error
-          });
-            *!/
-
-        //演示用
-        setTimeout(()=>{
-          //登录状态15天后过期
-          let expireDays = 1000 * 60 * 60 * 24 * 15;
-          this.setCookie('session','blablablablabla...', expireDays);
-          this.isLoging = false;
-          //登录成功后
-          this.$router.push('/user_info/');
-        },3000)
+        if (!this.passwordFlag) {
+          errorText = ''
+          this.passwordFlag = true
+        }
+        return {
+          status,
+          errorText
+        }
+      }
+    },
+    methods: {
+      tologin() {
+        if (this.username == "admin@123" && this.password == "123456") {
+          this.$router.push({path: 'index'})
+        }
+        else {
+          this.errorText = ''
+          this.loginjudeg()
+        }
       }
     }
-  }*/
+  }
 </script>
 
 <style scoped>
@@ -85,12 +85,13 @@
   .log-btn{
     width:402px;
     display: block;
-    text-align: left;
     line-height: 50px;
     border: none;
     margin:0 auto 15px;
     height:50px;
     color:#fff;
+    background-color: #21ab38;
+    text-align: center;
     font-size:13px;
     border-radius: 5px;
     position: relative;
@@ -99,10 +100,7 @@
     text-align: center;
     margin-top: 20px;
   }
-  .log-box .log-btn{
-    background-color: #21ab38;
-    text-align: center;
-  }
+
   .log-btn:hover,.log-btn:focus {
     color: #fff;
     opacity: .8;
@@ -118,5 +116,8 @@
     line-height: 48px;
     border-radius: 5px;
   }
-
+  .log-box p{
+    color: red;
+    font-size: smaller;
+  }
 </style>

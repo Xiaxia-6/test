@@ -17,9 +17,7 @@
         <router-view></router-view>
       </keep-alive>
     </div>
-
     <div class="app-footer">
-      <p>© 2017 xiaxia</p>
     </div>
   </div>
 </template>
